@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center | Kusah FL Billness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --light: #f5f6fa;
+            --accent: #f85994;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --gray: #e0e0e0;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+        
+        /* Header Styles (same as main) */
+        .header {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray);
+            margin: 0.25rem 0;
+        }
+        
+        /* Sidebar Styles (same as main) */
+        .sidebar {
+            background-color: white;
+            width: 280px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            z-index: 900;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar-link:hover {
+            background-color: var(--gray);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 180px);
+        }
+        
+        /* Help Center Specific Styles */
+        .help-hero {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.9), rgba(162, 155, 254, 0.9)), 
+                        url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 2rem;
+            margin: -2rem -2rem 2rem -2rem;
+            border-radius: 0 0 8px 8px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .help-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .help-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .help-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .search-help {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .search-help:focus-within {
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+        }
+        
+        .search-help input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: white;
+            outline: none;
+        }
+        
+        .search-help input::placeholder {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .search-help button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .search-help button:hover {
+            background-color: #e74c8c;
+        }
+        
+        .help-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .help-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .help-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .help-card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .help-card-content {
+            padding: 0 2rem 2rem;
+            text-align: center;
+        }
+        
+        .help-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .help-card p {
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .help-card-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .help-card-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .faq-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .faq-question {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(108, 92, 231, 0.05);
+        }
+        
+        .faq-question h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .faq-question i {
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 2rem;
+        }
+        
+        .faq-answer-content {
+            padding: 0 0 1.5rem;
+            color: var(--dark-gray);
+            line-height: 1.7;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .contact-section {
+            background: linear-gradient(to right, rgba(108, 92, 231, 0.1), rgba(248, 89, 148, 0.1));
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-method {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-method h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .contact-method p {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .contact-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .contact-link:hover {
+            color: var(--accent);
+            gap: 0.75rem;
+        }
+        
+        /* Footer Styles (same as main) */
+        .footer {
+            background-color: #16213e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-left: 280px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content, .footer {
+                margin-left: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .help-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .help-hero p {
+                font-size: 1rem;
+            }
+            
+            .search-help {
+                flex-direction: column;
+                border-radius: 8px;
+            }
+            
+            .search-help input {
+                padding: 0.75rem 1rem;
+            }
+            
+            .search-help button {
+                padding: 0.75rem;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-actions .btn {
+                padding: 0.5rem;
+                font-size: 0;
+            }
+            
+            .user-actions .btn i {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .help-hero {
+                padding: 3rem 1.5rem;
+                margin: -1rem -1rem 1.5rem -1rem;
+            }
+            
+            .main-content {
+                padding: 1.5rem 1rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Menu Toggle (for mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <span class="logo-icon">♫</span>
+            <span class="logo-text">Kusah FL Billness</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+            <a href="#" class="nav-link"><i class="fas fa-music"></i> Library</a>
+            <a href="#" class="nav-link"><i class="fas fa-headphones"></i> Premium</a>
+        </nav>
+        
+        <div class="user-actions">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <button class="btn btn-outline">Upgrade</button>
+            <div class="user-avatar" id="userAvatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Users</h3>
+            <a href="articles.html" class="sidebar-link"><i class="fas fa-newspaper"></i> Articles</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-download"></i> Download</a>
+            <a href="trending.html" class="sidebar-link"><i class="fas fa-fire"></i> Trending Songs</a>
+            <a href="help-center.html" class="sidebar-link active"><i class="fas fa-question-circle"></i> Help Center</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-star"></i> New Songs</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-crown"></i> Go Premium</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Charts</a>
+            <a href="#" class="sidebar-link"><i class="fab fa-wordpress"></i> Wordpress</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-video"></i> Videos</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-podcast"></i> Podcast</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-bullhorn"></i> Buzz</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Artists & Vendors</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-microphone"></i> Boomplay for Artists</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-check-circle"></i> Get Verified</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-question"></i> Artists FAQ</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-users"></i> Artists Distributors</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Vendors Login</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-flag"></i> Report Content Issue</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Company</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-ad"></i> Advertising</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-palette"></i> Visual Identity</a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="help-hero">
+            <div class="help-hero-content">
+                <h1>How can we help you?</h1>
+                <p>Find answers to your questions or contact our support team for personalized assistance.</p>
+                <div class="search-help">
+                    <input type="text" placeholder="Search help articles...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        <div class="help-container">
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <div class="help-card-content">
+                    <h3>Audio Playback Issues</h3>
+                    <p>Troubleshoot problems with music playback, sound quality, or streaming interruptions.</p>
+                    <a href="#" class="help-card-btn">Get Help</a>
+                </div>
+            </div>
+            
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="help-card-content">
+                    <h3>Account & Subscription</h3>
+                    <p>Manage your account, update payment methods, or resolve subscription issues.</p>
+                    <a href="#" class="help-card-btn">Get Help</a>
+                </div>
+            </div>
+            
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="help-card-content">
+                    <h3>App & Device Support</h3>
+                    <p>Get help with app installation, device compatibility, or technical requirements.</p>
+                    <a href="#" class="help-card-btn">Get Help</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I reset my password?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>To reset your password, go to the login page and click on "Forgot Password." Enter your registered email address and we'll send you a link to create a new password. Make sure to check your spam folder if you don't see the email in your inbox.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Why can't I play certain songs?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Some songs may be unavailable due to licensing restrictions in your region or if the artist has temporarily removed the content. Try checking back later or explore similar music from our extensive catalog.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I cancel my subscription?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>You can cancel your subscription at any time by going to your Account Settings > Subscription. Follow the prompts to cancel. Your premium access will continue until the end of your current billing period.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How many devices can I use with one account?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>You can use your Kusah FL Billness account on up to 5 different devices. However, you can only stream music on one device at a time with a standard subscription. Consider our Family Plan for multiple simultaneous streams.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I download music for offline listening?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>With a Premium subscription, you can download songs by clicking the download icon (↓) next to any track, album, or playlist. Downloaded content is available in the "Downloads" section of your library for offline playback.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-section">
+            <h2 class="section-title">Still need help? Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our support team in real-time for immediate assistance with your issue.</p>
+                    <a href="#" class="contact-link">Start Chat <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p>Send us an email and we'll respond within 24 hours with a solution to your problem.</p>
+                    <a href="mailto:support@kusahflbillness.co.tz" class="contact-link">Email Us <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Phone Support</h3>
+                    <p>Call our customer service line for personalized support from our team of experts.</p>
+                    <a href="tel:+255123456789" class="contact-link">+255 123 456 789 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <h2 class="section-title">Community Resources</h2>
+            <div class="help-container">
+                <div class="help-card">
+                    <div class="help-card-icon" style="background: linear-gradient(to right, #00b894, #55efc4);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="help-card-content">
+                        <h3>Community Forum</h3>
+                        <p>Connect with other users, share tips, and get help from the Kusah FL Billness community.</p>
+                        <a href="#" class="help-card-btn" style="background: linear-gradient(to right, #00b894, #55efc4);">Join Discussion</a>
+                    </div>
+                </div>
+                
+                <div class="help-card">
+                    <div class="help-card-icon" style="background: linear-gradient(to right, #fdcb6e, #ffeaa7);">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="help-card-content">
+                        <h3>Knowledge Base</h3>
+                        <p>Browse our comprehensive library of articles and tutorials for self-service help.</p>
+                        <a href="#" class="help-card-btn" style="background: linear-gradient(to right, #fdcb6e, #ffeaa7);">Explore Articles</a>
+                    </div>
+                </div>
+                
+                <div class="help-card">
+                    <div class="help-card-icon" style="background: linear-gradient(to right, #0984e3, #74b9ff);">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="help-card-content">
+                        <h3>Video Tutorials</h3>
+                        <p>Watch step-by-step video guides to get the most out of Kusah FL Billness.</p>
+                        <a href="#" class="help-card-btn" style="background: linear-gradient(to right, #0984e3, #74b9ff);">Watch Videos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>For Users</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Articles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Download</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Trending Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> New Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Go Premium</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>More Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Charts</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Wordpress</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Videos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Podcast</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Buzz</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Artists</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Boomplay for Artists</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Get Verified</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists Distributors</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Vendors Login</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Report Content Issue</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advertising</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Visual Identity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                    Follow us on social media for updates and news about your favorite artists.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Kusah FL Billness. All rights reserved.</p>
+            <div>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Cookies</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // FAQ Accordion Functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+                const answer = item.querySelector('.faq-answer');
+                
+                if (item.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.maxHeight = null;
+                }
+            });
+        });
+        
+        // Toggle sidebar on mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+        
+        // User dropdown
+        const userAvatar = document.getElementById('userAvatar');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        userAvatar.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-actions')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Responsive adjustments
+        function checkScreenSize() {
+            if (window.innerWidth <= 992) {
+                menuToggle.style.display = 'block';
+            } else {
+                menuToggle.style.display = 'none';
+                sidebar.classList.remove('show');
+            }
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
+        
+        // Highlight current page in sidebar
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            
+            sidebarLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

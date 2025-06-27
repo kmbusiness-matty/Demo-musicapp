@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Charts | Kusah FL Billness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --light: #f5f6fa;
+            --accent: #f85994;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --gray: #e0e0e0;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray);
+            margin: 0.25rem 0;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: white;
+            width: 280px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            z-index: 900;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar-link:hover {
+            background-color: var(--gray);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content - Charts Specific */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 180px);
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .chart-filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-label {
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+        
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--gray);
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .chart-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .chart-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background-color: var(--light);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .chart-btn:hover {
+            background-color: var(--gray);
+        }
+        
+        .chart-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+        
+        /* Top Songs List */
+        .songs-list {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .songs-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .songs-list-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .songs-list-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--gray);
+            transition: background-color 0.2s;
+        }
+        
+        .song-item:last-child {
+            border-bottom: none;
+        }
+        
+        .song-item:hover {
+            background-color: rgba(108, 92, 231, 0.05);
+        }
+        
+        .song-rank {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark-gray);
+            width: 40px;
+            text-align: center;
+        }
+        
+        .song-cover {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin: 0 1.5rem;
+            object-fit: cover;
+        }
+        
+        .song-info {
+            flex: 1;
+        }
+        
+        .song-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+        }
+        
+        .song-artist {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .song-stats {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-right: 2rem;
+        }
+        
+        .song-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark-gray);
+        }
+        
+        .song-stat i {
+            color: var(--accent);
+        }
+        
+        .song-duration {
+            color: var(--dark-gray);
+        }
+        
+        .song-play {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .song-play:hover {
+            background-color: #5a4bd6;
+            transform: scale(1.1);
+        }
+        
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .mini-chart {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .mini-chart:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mini-chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .mini-chart-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .mini-chart-wrapper {
+            height: 200px;
+            width: 100%;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #16213e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-left: 280px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content, .footer {
+                margin-left: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .song-stats {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .chart-filters {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .song-item {
+                padding: 1rem;
+            }
+            
+            .song-cover {
+                margin: 0 1rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-actions .btn {
+                padding: 0.5rem;
+                font-size: 0;
+            }
+            
+            .user-actions .btn i {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .song-item {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .song-info {
+                flex-basis: calc(100% - 150px);
+            }
+            
+            .song-play {
+                margin-left: auto;
+            }
+        }
+        
+        /* Menu Toggle (for mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <span class="logo-icon">♫</span>
+            <span class="logo-text">Kusah FL Billness</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+            <a href="#" class="nav-link"><i class="fas fa-music"></i> Library</a>
+            <a href="#" class="nav-link"><i class="fas fa-headphones"></i> Premium</a>
+        </nav>
+        
+        <div class="user-actions">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <button class="btn btn-outline">Upgrade</button>
+            <div class="user-avatar" id="userAvatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Users</h3>
+            <a href="articles.html" class="sidebar-link"><i class="fas fa-newspaper"></i> Articles</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-download"></i> Download</a>
+            <a href="trending.html" class="sidebar-link"><i class="fas fa-fire"></i> Trending Songs</a>
+            <a href="help-center.html" class="sidebar-link"><i class="fas fa-question-circle"></i> Help Center</a>
+            <a href="new-songs.html" class="sidebar-link"><i class="fas fa-star"></i> New Songs</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-crown"></i> Go Premium</a>
+            <a href="charts.html" class="sidebar-link active"><i class="fas fa-chart-line"></i> Charts</a>
+            <a href="#" class="sidebar-link"><i class="fab fa-wordpress"></i> Wordpress</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-video"></i> Videos</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-podcast"></i> Podcast</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-bullhorn"></i> Buzz</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Artists & Vendors</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-microphone"></i> Boomplay for Artists</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-check-circle"></i> Get Verified</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-question"></i> Artists FAQ</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-users"></i> Artists Distributors</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Vendors Login</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-flag"></i> Report Content Issue</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Company</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-ad"></i> Advertising</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-palette"></i> Visual Identity</a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header animated">
+            <h1 class="page-title">Music Charts</h1>
+            <div class="chart-filters">
+                <div class="filter-group">
+                    <span class="filter-label">Country:</span>
+                    <select class="filter-select">
+                        <option>Tanzania</option>
+                        <option>Kenya</option>
+                        <option>Nigeria</option>
+                        <option>South Africa</option>
+                        <option>Ghana</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Time:</span>
+                    <select class="filter-select">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                        <option>This Year</option>
+                        <option>All Time</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Genre:</span>
+                    <select class="filter-select">
+                        <option>All Genres</option>
+                        <option>Bongo Flava</option>
+                        <option>Hip Hop</option>
+                        <option>Afrobeats</option>
+                        <option>Dancehall</option>
+                        <option>Gospel</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Top Songs List -->
+        <div class="songs-list animated delay-1">
+            <div class="songs-list-header">
+                <h2 class="songs-list-title">Top 10 Songs in Tanzania</h2>
+                <div class="songs-list-actions">
+                    <button class="chart-btn"><i class="fas fa-play"></i> Play All</button>
+                    <button class="chart-btn"><i class="fas fa-random"></i> Shuffle</button>
+                </div>
+            </div>
+            
+            <!-- Song Item 1 -->
+            <div class="song-item">
+                <div class="song-rank">1</div>
+                <img src="https://i.ytimg.com/vi/abc123/maxresdefault.jpg" alt="Song Cover" class="song-cover">
+                <div class="song-info">
+                    <h3 class="song-title">Mama</h3>
+                    <p class="song-artist">Diamond Platnumz ft. Adele</p>
+                </div>
+                <div class="song-stats">
+                    <div class="song-stat"><i class="fas fa-play"></i> 12.5M</div>
+                    <div class="song-stat"><i class="fas fa-heart"></i> 845K</div>
+                    <div class="song-stat"><i class="fas fa-share"></i> 120K</div>
+                </div>
+                <div class="song-duration">3:45</div>
+                <div class="song-play"><i class="fas fa-play"></i></div>
+            </div>
+            
+            <!-- Song Item 2 -->
+            <div class="song-item">
+                <div class="song-rank">2</div>
+                <img src="https://i.ytimg.com/vi/def456/maxresdefault.jpg" alt="Song Cover" class="song-cover">
+                <div class="song-info">
+                    <h3 class="song-title">Number One</h3>
+                    <p class="song-artist">Harmonize ft. Burna Boy</p>
+                </div>
+                <div class="song-stats">
+                    <div class="song-stat"><i class="fas fa-play"></i> 10.2M</div>
+                    <div class="song-stat"><i class="fas fa-heart"></i> 720K</div>
+                    <div class="song-stat"><i class="fas fa-share"></i> 98K</div>
+                </div>
+                <div class="song-duration">4:12</div>
+                <div class="song-play"><i class="fas fa-play"></i></div>
+            </div>
+            
+            <!-- Song Item 3 -->
+            <div class="song-item">
+                <div class="song-rank">3</div>
+                <img src="https://i.ytimg.com/vi/ghi789/maxresdefault.jpg" alt="Song Cover" class="song-cover">
+                <div class="song-info">
+                    <h3 class="song-title">Sweet Love</h3>
+                    <p class="song-artist">Ali Kiba</p>
+                </div>
+                <div class="song-stats">
+                    <div class="song-stat"><i class="fas fa-play"></i> 9.8M</div>
+                    <div class="song-stat"><i class="fas fa-heart"></i> 690K</div>
+                    <div class="song-stat"><i class="fas fa-share"></i> 85K</div>
+                </div>
+                <div class="song-duration">3:22</div>
+                <div class="song-play"><i class="fas fa-play"></i></div>
+            </div>
+            
+            <!-- Song Item 4 -->
+            <div class="song-item">
+                <div class="song-rank">4</div>
+                <img src="https://i.ytimg.com/vi/jkl012/maxresdefault.jpg" alt="Song Cover" class="song-cover">
+                <div class="song-info">
+                    <h3 class="song-title">Nakupenda</h3>
+                    <p class="song-artist">Rayvanny</p>
+                </div>
+                <div class="song-stats">
+                    <div class="song-stat"><i class="fas fa-play"></i> 8.7M</div>
+                    <div class="song-stat"><i class="fas fa-heart"></i> 610K</div>
+                    <div class="song-stat"><i class="fas fa-share"></i> 75K</div>
+                </div>
+                <div class="song-duration">3:15</div>
+                <div class="song-play"><i class="fas fa-play"></i></div>
+            </div>
+            
+            <!-- Song Item 5 -->
+            <div class="song-item">
+                <div class="song-rank">5</div>
+                <img src="https://i.ytimg.com/vi/mno345/maxresdefault.jpg" alt="Song Cover" class="song-cover">
+                <div class="song-info">
+                    <h3 class="song-title">Mwanza</h3>
+                    <p class="song-artist">Lady Jaydee</p>
+                </div>
+                <div class="song-stats">
+                    <div class="song-stat"><i class="fas fa-play"></i> 7.9M</div>
+                    <div class="song-stat"><i class="fas fa-heart"></i> 550K</div>
+                    <div class="song-stat"><i class="fas fa-share"></i> 68K</div>
+                </div>
+                <div class="song-duration">3:58</div>
+                <div class="song-play"><i class="fas fa-play"></i></div>
+            </div>
+            
+            <!-- Song Items 6-10 would go here -->
+        </div>
+        
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <!-- Chart 1 -->
+            <div class="mini-chart animated delay-2">
+                <div class="mini-chart-header">
+                    <h3 class="mini-chart-title">Streams by Day</h3>
+                    <button class="chart-btn active">Weekly</button>
+                </div>
+                <div class="mini-chart-wrapper">
+                    <canvas id="streamsChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Chart 2 -->
+            <div class="mini-chart animated delay-3">
+                <div class="mini-chart-header">
+                    <h3 class="mini-chart-title">Genre Distribution</h3>
+                    <button class="chart-btn">View All</button>
+                </div>
+                <div class="mini-chart-wrapper">
+                    <canvas id="genreChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Chart 3 -->
+            <div class="mini-chart animated delay-4">
+                <div class="mini-chart-header">
+                    <h3 class="mini-chart-title">Artist Popularity</h3>
+                    <button class="chart-btn">Top 10</button>
+                </div>
+                <div class="mini-chart-wrapper">
+                    <canvas id="artistChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Large Chart -->
+        <div class="chart-container animated delay-3">
+            <div class="chart-header">
+                <h2 class="chart-title">Monthly Streaming Trends</h2>
+                <div class="chart-actions">
+                    <button class="chart-btn active">2025</button>
+                    <button class="chart-btn">2024</button>
+                    <button class="chart-btn">2023</button>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="monthlyTrendsChart"></canvas>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>For Users</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Articles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Download</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Trending Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> New Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Go Premium</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>More Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Charts</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Wordpress</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Videos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Podcast</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Buzz</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Artists</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Boomplay for Artists</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Get Verified</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists Distributors</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Vendors Login</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Report Content Issue</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advertising</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Visual Identity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                    Follow us on social media for updates and news about your favorite artists.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Kusah FL Billness. All rights reserved.</p>
+            <div>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Cookies</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script>
+        // Toggle sidebar on mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+        
+        // User dropdown
+        const userAvatar = document.getElementById('userAvatar');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        userAvatar.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-actions')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Responsive adjustments
+        function checkScreenSize() {
+            if (window.innerWidth <= 992) {
+                menuToggle.style.display = 'block';
+            } else {
+                menuToggle.style.display = 'none';
+                sidebar.classList.remove('show');
+            }
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
+        
+        // Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Streams by Day Chart
+            const streamsCtx = document.getElementById('streamsChart').getContext('2d');
+            const streamsChart = new Chart(streamsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Streams (millions)',
+                        data: [3.2, 4.1, 3.8, 5.2, 6.7, 8.3, 7.5],
+                        borderColor: '#6c5ce7',
+                        backgroundColor: 'rgba(108, 92, 231, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Genre Distribution Chart
+            const genreCtx = document.getElementById('genreChart').getContext('2d');
+            const genreChart = new Chart(genreCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Bongo Flava', 'Afrobeats', 'Hip Hop', 'Dancehall', 'Gospel', 'Others'],
+                    datasets: [{
+                        data: [45, 25, 15, 8, 5, 2],
+                        backgroundColor: [
+                            '#6c5ce7',
+                            '#f85994',
+                            '#00b894',
+                            '#fdcb6e',
+                            '#a29bfe',
+                            '#e0e0e0'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 20
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+            
+            // Artist Popularity Chart
+            const artistCtx = document.getElementById('artistChart').getContext('2d');
+            const artistChart = new Chart(artistCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Diamond', 'Harmonize', 'Ali Kiba', 'Rayvanny', 'Lady Jaydee'],
+                    datasets: [{
+                        label: 'Monthly Streams (millions)',
+                        data: [28, 22, 19, 15, 12],
+                        backgroundColor: [
+                            'rgba(108, 92, 231, 0.7)',
+                            'rgba(248, 89, 148, 0.7)',
+                            'rgba(0, 184, 148, 0.7)',
+                            'rgba(253, 203, 110, 0.7)',
+                            'rgba(162, 155, 254, 0.7)'
+                        ],
+                        borderColor: [
+                            '#6c5ce7',
+                            '#f85994',
+                            '#00b894',
+                            '#fdcb6e',
+                            '#a29bfe'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Monthly Trends Chart
+            const trendsCtx = document.getElementById('monthlyTrendsChart').getContext('2d');
+            const trendsChart = new Chart(trendsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: '2025',
+                            data: [42, 45, 48, 52, 58, 62, 65, 68, 72, 75, 78, 82],
+                            borderColor: '#6c5ce7',
+                            backgroundColor: 'rgba(108, 92, 231, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: '2024',
+                            data: [35, 38, 40, 42, 45, 48, 50, 52, 55, 58, 60, 63],
+                            borderColor: '#f85994',
+                            backgroundColor: 'rgba(248, 89, 148, 0.1)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            align: 'end'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Streams (millions)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Chart filter buttons
+            const chartBtns = document.querySelectorAll('.chart-btn');
+            chartBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons in the same group
+                    const parent = this.closest('.chart-actions') || this.closest('.mini-chart-header');
+                    if (parent) {
+                        const btns = parent.querySelectorAll('.chart-btn');
+                        btns.forEach(b => b.classList.remove('active'));
+                    }
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

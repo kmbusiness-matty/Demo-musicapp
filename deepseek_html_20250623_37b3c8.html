@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kusah FL Billness - Tanzania Music Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --light: #f5f6fa;
+            --accent: #f85994;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --gray: #e0e0e0;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray);
+            margin: 0.25rem 0;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: white;
+            width: 280px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            z-index: 900;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar-link:hover {
+            background-color: var(--gray);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 180px); /* Adjust based on footer height */
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #16213e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-left: 280px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content, .footer {
+                margin-left: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-actions .btn {
+                padding: 0.5rem;
+                font-size: 0;
+            }
+            
+            .user-actions .btn i {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Menu Toggle (for mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <span class="logo-icon">♫</span>
+            <span class="logo-text">Kusah FL Billness</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="explore.html" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+            <a href="library.html" class="nav-link"><i class="fas fa-music"></i> Library</a>
+            <a href="#" class="nav-link"><i class="fas fa-headphones"></i> Premium</a>
+        </nav>
+        
+        <div class="user-actions">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <button class="btn btn-outline">Upgrade</button>
+            <div class="user-avatar" id="userAvatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="settings.html" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Users</h3>
+            <a href="articles.html" class="sidebar-link active"><i class="fas fa-newspaper"></i> Articles</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-download"></i> Download</a>
+            <a href="trending.html" class="sidebar-link"><i class="fas fa-fire"></i> Trending Songs</a>
+            <a href="help-center.html" class="sidebar-link"><i class="fas fa-question-circle"></i> Help Center</a>
+            <a href="new-songs.html" class="sidebar-link"><i class="fas fa-star"></i> New Songs</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-crown"></i> Go Premium</a>
+            <a href="charts.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Charts</a>
+            <a href="#" class="sidebar-link"><i class="fab fa-wordpress"></i> Wordpress</a>
+            <a href="videos.html" class="sidebar-link"><i class="fas fa-video"></i> Videos</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-podcast"></i> Podcast</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-bullhorn"></i> Buzz</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Artists & Vendors</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-microphone"></i> Boomplay for Artists</a>
+            <a href="get-verified.html" class="sidebar-link"><i class="fas fa-check-circle"></i> Get Verified</a>
+            <a href="artist-faq.html" class="sidebar-link"><i class="fas fa-question"></i> Artists FAQ</a>
+            <a href="artists-distributors.html" class="sidebar-link"><i class="fas fa-users"></i> Artists Distributors</a>
+            <a href="vendors-login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Vendors Login</a>
+            <a href="report-content.html" class="sidebar-link"><i class="fas fa-flag"></i> Report Content Issue</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Company</h3>
+            <a href="about.html" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contacts.html" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="advertising.html" class="sidebar-link"><i class="fas fa-ad"></i> Advertising</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-palette"></i> Visual Identity</a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Welcome to Kusah FL Billness</h1>
+        <p>Tanzania's premier music streaming platform. Discover new music, trending artists, and enjoy your favorite songs anytime, anywhere.</p>
+        
+        <!-- Content sections would go here -->
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>For Users</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Articles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Download</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Trending Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> New Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Go Premium</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>More Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Charts</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Wordpress</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Videos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Podcast</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Buzz</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Artists</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Boomplay for Artists</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Get Verified</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists Distributors</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Vendors Login</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Report Content Issue</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advertising</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Visual Identity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                    Follow us on social media for updates and news about your favorite artists.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Kusah FL Billness. All rights reserved.</p>
+            <div>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Cookies</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle sidebar on mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+        
+        // User dropdown
+        const userAvatar = document.getElementById('userAvatar');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        userAvatar.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-actions')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Responsive adjustments
+        function checkScreenSize() {
+            if (window.innerWidth <= 992) {
+                menuToggle.style.display = 'block';
+            } else {
+                menuToggle.style.display = 'none';
+                sidebar.classList.remove('show');
+            }
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
+    </script>
+</body>
+</html>

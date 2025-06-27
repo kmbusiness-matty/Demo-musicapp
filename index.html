@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Kusah FL Billness | Tanzania Music Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --light: #f5f6fa;
+            --accent: #f85994;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --gray: #e0e0e0;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray);
+            margin: 0.25rem 0;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: white;
+            width: 280px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            z-index: 900;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar-link:hover {
+            background-color: var(--gray);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 180px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.8), rgba(248, 89, 148, 0.8)), 
+                        url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            padding: 4rem 3rem;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* Featured Section */
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .section-title a {
+            font-size: 0.9rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title a i {
+            transition: transform 0.2s;
+        }
+        
+        .section-title a:hover i {
+            transform: translateX(3px);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .card-body {
+            padding: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .card-text {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+            opacity: 0.8;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .badge-primary {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+        }
+        
+        .badge-accent {
+            background-color: rgba(248, 89, 148, 0.1);
+            color: var(--accent);
+        }
+        
+        /* Playlist Section */
+        .playlist-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .playlist-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .playlist-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        
+        .playlist-info {
+            flex: 1;
+        }
+        
+        .playlist-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .playlist-songs {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+            opacity: 0.8;
+        }
+        
+        .playlist-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .playlist-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Artist Spotlight */
+        .artist-card {
+            text-align: center;
+        }
+        
+        .artist-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary);
+            padding: 3px;
+        }
+        
+        .artist-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .artist-genre {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+            opacity: 0.8;
+        }
+        
+        /* Featured Artists Section */
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        /* Now Playing Bar (simplified) */
+        .now-playing {
+            position: fixed;
+            bottom: 0;
+            left: 280px;
+            right: 0;
+            background-color: white;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 800;
+        }
+        
+        .now-playing-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .now-playing-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        
+        .now-playing-text h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .now-playing-text p {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+        
+        .now-playing-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .now-playing-controls button {
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .now-playing-controls button:hover {
+            color: var(--primary);
+        }
+        
+        .now-playing-controls .play-btn {
+            font-size: 1.5rem;
+        }
+        
+        .now-playing-progress {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background-color: var(--gray);
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 30%;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #16213e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-left: 280px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (min-width: 993px) {
+    .sidebar {
+        transform: translateX(0) !important;
+        display: block !important;
+    }
+    
+    .menu-toggle {
+        display: none !important;
+    }
+}
+       @media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        position: fixed;
+        z-index: 950;
+        background-color: white;
+        height: 100vh;
+        top: 70px;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content, .footer, .now-playing {
+        margin-left: 0;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
+        
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            
+            .hero {
+                padding: 3rem 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+            }
+            
+            .now-playing {
+                padding: 0.75rem 1rem;
+            }
+            
+            .now-playing-progress {
+                margin: 0 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-actions .btn {
+                padding: 0.5rem;
+                font-size: 0;
+            }
+            
+            .user-actions .btn i {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero {
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .now-playing-info {
+                gap: 0.5rem;
+            }
+            
+            .now-playing-img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .now-playing-controls {
+                gap: 0.75rem;
+            }
+        }
+        
+        /* Menu Toggle (for mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Animation for music notes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .music-note {
+            position: absolute;
+            color: white;
+            opacity: 0.7;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .note-1 {
+            top: 20%;
+            left: 70%;
+            font-size: 1.5rem;
+            animation-delay: 0s;
+        }
+        
+        .note-2 {
+            top: 40%;
+            left: 80%;
+            font-size: 2rem;
+            animation-delay: 0.5s;
+        }
+        
+        .note-3 {
+            top: 60%;
+            left: 75%;
+            font-size: 1.2rem;
+            animation-delay: 1s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <span class="logo-icon">♫</span>
+            <span class="logo-text">Kusah FL Billness</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="home-page.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+            <a href="explore.html" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+            <a href="library.html" class="nav-link"><i class="fas fa-music"></i> Library</a>
+            <a href="#" class="nav-link"><i class="fas fa-headphones"></i> Premium</a>
+        </nav>
+        
+        <div class="user-actions">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search artists, songs, albums...">
+            </div>
+            <button class="btn btn-outline">Upgrade</button>
+            <div class="user-avatar" id="userAvatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="login.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="admin-dashboard.html" class="dropdown-item"><i class="fas fa-user"></i> Admin</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Users</h3>
+            <a href="articles.html" class="sidebar-link"><i class="fas fa-newspaper"></i> Articles</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-download"></i> Download</a>
+            <a href="trending.html" class="sidebar-link"><i class="fas fa-fire"></i> Trending Songs</a>
+            <a href="help-center.html" class="sidebar-link"><i class="fas fa-question-circle"></i> Help Center</a>
+            <a href="new-songs.html" class="sidebar-link"><i class="fas fa-star"></i> New Songs</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-crown"></i> Go Premium</a>
+            <a href="charts.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Charts</a>
+            <a href="#" class="sidebar-link"><i class="fab fa-wordpress"></i> Wordpress</a>
+            <a href="videos.html" class="sidebar-link"><i class="fas fa-video"></i> Videos</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-podcast"></i> Podcast</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-bullhorn"></i> Buzz</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Artists & Vendors</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-microphone"></i> Boomplay for Artists</a>
+            <a href="get-verified.html" class="sidebar-link"><i class="fas fa-check-circle"></i> Get Verified</a>
+            <a href="artist-faq.html" class="sidebar-link"><i class="fas fa-question"></i> Artists FAQ</a>
+            <a href="artists-distributors.html" class="sidebar-link"><i class="fas fa-users"></i> Artists Distributors</a>
+            <a href="vendors-login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Vendors Login</a>
+            <a href="report-content.html" class="sidebar-link"><i class="fas fa-flag"></i> Report Content Issue</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Company</h3>
+            <a href="about.html" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="contacts.html" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="advertising.html" class="sidebar-link"><i class="fas fa-ad"></i> Advertising</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-palette"></i> Visual Identity</a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Discover Tanzania's Best Music</h1>
+                <p>Stream the latest hits from your favorite artists and explore new music tailored just for you.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="heroPlayBtn"><i class="fas fa-play"></i> Play Now</button>
+                    <button class="btn btn-outline"><i class="fas fa-heart"></i> Follow Artists</button>
+                </div>
+                <!-- Audio element for hero play button -->
+                <audio id="heroAudio" src="https://bk.mybettersong.com/uploads/Ada%20Ehi%20Ft.%20Buchi%20%E2%80%93%20Congratulations.mp3"></audio>
+            </div>
+            <i class="fas fa-music music-note note-1"></i>
+            <i class="fas fa-music music-note note-2"></i>
+            <i class="fas fa-music music-note note-3"></i>
+        </section>
+        <!-- Trending Now Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Trending Now</h2>
+                <a href="trending.html">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="grid">
+                <!-- Song Card 1 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Song Cover" class="card-img">
+                    <div class="card-body">
+                        <span class="badge badge-primary">Gospel Flava</span>
+                        <h3 class="card-title">No Turning Back</h3>
+                        <p class="card-text">Gaise Baba</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://bk.mybettersong.com/uploads/Gaise%20Baba%20ft%20Lawrence%20Oyor%20-%20No%20Turning%20Back.mp3">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Song Card 2 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Song Cover" class="card-img">
+                    <div class="card-body">
+                        <span class="badge badge-accent">Afrobeats</span>
+                        <h3 class="card-title">Congratulation</h3>
+                        <p class="card-text">Ada Ehi</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://bk.mybettersong.com/uploads/Ada%20Ehi%20Ft.%20Buchi%20%E2%80%93%20Congratulations.mp3">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Song Card 3 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Song Cover" class="card-img">
+                    <div class="card-body">
+                        <span class="badge badge-primary">Bongo Flava</span>
+                        <h3 class="card-title">Tanzania Yetu</h3>
+                        <p class="card-text">Peter Msechu</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://bk.mybettersong.com/uploads/Peter%20Msechu%20%E2%80%93%20TANZANIA%20YETU%2060.mp3">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Song Card 4 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Song Cover" class="card-img">
+                    <div class="card-body">
+                        <span class="badge badge-accent">Afrobeats</span>
+                        <h3 class="card-title">Super Woman</h3>
+                        <p class="card-text">Tanzanian all Stars</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://bk.mybettersong.com/uploads/Tanzanian%20Women%20All%20Stars%20-%20Superwoman.mp3">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Song Card 5 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Song Cover" class="card-img">
+                    <div class="card-body">
+                        <span class="badge badge-primary">Big Flava</span>
+                        <h3 class="card-title">This your Love</h3>
+                        <p class="card-text">Chandler Moore</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://bk.mybettersong.com/uploads/Moses%20Bliss%20Ft%20Chandler%20Moore%20-%20Your%20Love.mp3">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- New Releases Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>New Releases</h2>
+                <a href="new-songs.html">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="grid">
+                <!-- Album Card 1 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Album Cover" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Worship & Praise </h3>
+                        <p class="card-text">GUC ft Mercy Chinwo </p>
+                        <button class="btn btn-primary play-btn" data-audio="https://cdn.trendybeatz.com/audio/GUC-&-Mercy-Chinwo-Worship-And-Praise-Mixtape-[TrendyBeatz.com].mp3">
+                            <i class="fas fa-play"></i> Play Album
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Album Card 2 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Album Cover" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Best of Hillsong</h3>
+                        <p class="card-text">Hillsong Worship</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                            <i class="fas fa-play"></i> Play Album
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Album Card 3 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Album Cover" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Flowers</h3>
+                        <p class="card-text">Rayvanny</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3">
+                            <i class="fas fa-play"></i> Play Album
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Album Card 4 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Album Cover" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">High School</h3>
+                        <p class="card-text">Harmonize</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3">
+                            <i class="fas fa-play"></i> Play Album
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Album Card 5 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Album Cover" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Love Sounds</h3>
+                        <p class="card-text">Barnaba</p>
+                        <button class="btn btn-primary play-btn" data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3">
+                            <i class="fas fa-play"></i> Play Album
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Featured Playlists Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Featured Playlists</h2>
+                <a href="playlists.html">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="grid">
+                <!-- Playlist 1 -->
+                <div class="playlist-card">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Playlist" class="playlist-img">
+                    <div class="playlist-info">
+                        <h3 class="playlist-title">Bongo Hits 2023</h3>
+                        <p class="playlist-songs">45 songs • 2h 45m</p>
+                    </div>
+                    <button class="playlist-btn play-btn" data-audio="https://bk.mybettersong.com/uploads/Aslay%20%E2%80%93%20Angekuona.mp3"><i class="fas fa-play"></i></button>
+                </div>
+                
+                <!-- Playlist 2 -->
+                <div class="playlist-card">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Playlist" class="playlist-img">
+                    <div class="playlist-info">
+                        <h3 class="playlist-title">Tanzanian Party Mix</h3>
+                        <p class="playlist-songs">32 songs • 2h 15m</p>
+                    </div>
+                    <button class="playlist-btn play-btn" data-audio="https://timheven.com/uploads/Sonia%20-%20Joel%20Lwaga%20mashup.mp3"><i class="fas fa-play"></i></button>
+                </div>
+                
+                <!-- Playlist 3 -->
+                <div class="playlist-card">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Playlist" class="playlist-img">
+                    <div class="playlist-info">
+                        <h3 class="playlist-title">Swahili Love Songs</h3>
+                        <p class="playlist-songs">28 songs • 1h 52m</p>
+                    </div>
+                    <button class="playlist-btn play-btn" data-audio="https://timheven.com/uploads/Zabron%20Singer%20-%20Baada%20ya%20Ndoa.mp3"><i class="fas fa-play"></i></button>
+                </div>
+                
+                <!-- Playlist 4 -->
+                <div class="playlist-card">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Playlist" class="playlist-img">
+                    <div class="playlist-info">
+                        <h3 class="playlist-title">East African Vibes</h3>
+                        <p class="playlist-songs">40 songs • 3h 10m</p>
+                    </div>
+                    <button class="playlist-btn play-btn" data-audio="https://timheven.com/uploads/Obby%20Alpha%20%E2%80%93%20Bora%20Kushukuru.mp3"><i class="fas fa-play"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        
+        <!-- Artist Spotlight Section -->
+         <section class="section">
+            <div class="section-title">
+                <h2>Artist Spotlight</h2>
+                <a href="artists.html">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="artists-grid">
+                <!-- Artist 1 -->
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Artist" class="artist-avatar">
+                    <h3 class="artist-name">Yemi Alade</h3>
+                    <p class="artist-genre">Best Flava</p>
+                    <button class="btn btn-primary play-btn" data-audio="https://cdn.trendybeatz.com/audio/Yemi-Alade-Ft-Selebobo-Na-Gode-(TrendyBeatz.com).mp3" style="margin-top: 10px;">
+                        <i class="fas fa-play"></i> Top Song
+                    </button>
+                </div>
+                
+                <!-- Artist 2 -->
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Artist" class="artist-avatar">
+                    <h3 class="artist-name">Angel Bernard</h3>
+                    <p class="artist-genre">Afrobeat</p>
+                    <button class="btn btn-primary play-btn" data-audio="https://timheven.com/uploads/Angel%20Benard%20-%20Siteketei.mp3" style="margin-top: 10px;">
+                        <i class="fas fa-play"></i> Top Song
+                    </button>
+                </div>
+                
+                <!-- Artist 3 -->
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Artist" class="artist-avatar">
+                    <h3 class="artist-name">Nandy</h3>
+                    <p class="artist-genre">Bongo Flava</p>
+                    <button class="btn btn-primary play-btn" data-audio="https://kichwaupload.com/uploads/Nandy%20%E2%80%93%20Nikumbushe%20(citimuzik.com).mp3" style="margin-top: 10px;">
+                        <i class="fas fa-play"></i> Top Song
+                    </button>
+                </div>
+                
+                <!-- Artist 4 -->
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Artist" class="artist-avatar">
+                    <h3 class="artist-name">Sandra Boakye</h3>
+                    <p class="artist-genre">Afrobeat</p>
+                    <button class="btn btn-primary play-btn" data-audio="https://files.ceenaija.com/uploads/music/2024/05/Sandra-Boakye-Duah-feat-Prophet-Edem-Julius-Cudjoe-Light-Has-Come-(CeeNaija.com).mp3" style="margin-top: 10px;">
+                        <i class="fas fa-play"></i> Top Song
+                    </button>
+                </div>
+                
+                <!-- Artist 5 -->
+                <div class="artist-card">
+                    <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Artist" class="artist-avatar">
+                    <h3 class="artist-name">Sifaeli</h3>
+                    <p class="artist-genre">Gospel Flava</p>
+                    <button class="btn btn-primary play-btn" data-audio="https://timheven.com/uploads/Sifael%20Mwabuka%20-%20Akupe%20Ushuhuda%20Washuhudie.mp3" style="margin-top: 10px;">
+                        <i class="fas fa-play"></i> Top Song
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Now Playing Bar -->
+    <div class="now-playing">
+        <div class="now-playing-info">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Now Playing" class="now-playing-img">
+            <div class="now-playing-text">
+                <h4 id="nowPlayingTitle">Nice Melody</h4>
+                <p id="nowPlayingArtist">Peter Ontre</p>
+            </div>
+            <button class="btn btn-outline"><i class="fas fa-heart"></i></button>
+        </div>
+        
+        <div class="now-playing-progress">
+            <div class="progress-bar">
+                <div class="progress" id="audioProgress"></div>
+            </div>
+        </div>
+        
+        <div class="now-playing-controls">
+            <button id="prevBtn"><i class="fas fa-step-backward"></i></button>
+            <button class="play-btn" id="mainPlayBtn"><i class="fas fa-pause"></i></button>
+            <button id="nextBtn"><i class="fas fa-step-forward"></i></button>
+            <button id="volumeBtn"><i class="fas fa-volume-up"></i></button>
+        </div>
+        
+        <!-- Main audio element -->
+        <audio id="mainAudio"></audio>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Press</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Communities</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> For Artists</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Developers</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advertising</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Investors</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Useful Links</h3>
+                <ul class="footer-links">
+                    <li><a href="help-center.html"><i class="fas fa-chevron-right"></i> Help</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Web Player</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Mobile App</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Free Mobile</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Use</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cookies</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Accessibility</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; 2023 Kusah FL Billness. All rights reserved.
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+         // Update the existing JavaScript
+        // Toggle mobile menu
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        // Function to check screen size and toggle sidebar accordingly
+        function handleSidebarVisibility() {
+            if (window.innerWidth <= 992) {
+                // Mobile view - sidebar starts hidden
+                sidebar.classList.remove('show');
+                menuToggle.style.display = 'block';
+            } else {
+                // Desktop view - sidebar always visible
+                sidebar.classList.add('show');
+                menuToggle.style.display = 'none';
+            }
+        }
+
+        // Initial check
+        handleSidebarVisibility();
+
+        // Add event listener for window resize
+        window.addEventListener('resize', handleSidebarVisibility);
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+
+        // User dropdown menu
+        const userAvatar = document.getElementById('userAvatar');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        userAvatar.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Prevent dropdown from closing when clicking inside
+        dropdownMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // Audio Player Functionality
+        const mainAudio = document.getElementById('mainAudio');
+        const audioProgress = document.getElementById('audioProgress');
+        const mainPlayBtn = document.getElementById('mainPlayBtn');
+        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+        const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+        
+        // Store all play buttons and their associated data
+        const playButtons = document.querySelectorAll('.play-btn');
+        let currentAudioIndex = 0;
+        let audioElements = [];
+        
+        // Initialize audio elements from play buttons
+        playButtons.forEach((button, index) => {
+            const audioSrc = button.getAttribute('data-audio');
+            const cardTitle = button.closest('.card') ? 
+                button.closest('.card').querySelector('.card-title')?.textContent || 'Unknown Title' : 
+                'Playlist';
+            const cardText = button.closest('.card') ? 
+                button.closest('.card').querySelector('.card-text')?.textContent || 'Unknown Artist' : 
+                'Artist';
+                
+            audioElements.push({
+                src: audioSrc,
+                title: cardTitle,
+                artist: cardText
+            });
+            
+            button.addEventListener('click', () => {
+                // Update current playing index
+                currentAudioIndex = index;
+                
+                // Set audio source
+                mainAudio.src = audioSrc;
+                
+                // Update now playing info
+                nowPlayingTitle.textContent = audioElements[index].title;
+                nowPlayingArtist.textContent = audioElements[index].artist;
+                
+                // Play audio
+                mainAudio.play();
+                mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                
+                // Update progress bar in real-time
+                mainAudio.addEventListener('timeupdate', updateProgressBar);
+                
+                // When audio ends, play next track
+                mainAudio.addEventListener('ended', playNextTrack);
+            });
+        });
+        
+        // Hero play button
+        document.getElementById('heroPlayBtn').addEventListener('click', () => {
+            // Play the first song by default
+            currentAudioIndex = 0;
+            mainAudio.src = audioElements[0].src;
+            nowPlayingTitle.textContent = audioElements[0].title;
+            nowPlayingArtist.textContent = audioElements[0].artist;
+            mainAudio.play();
+            mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        });
+        
+        // Main play/pause button
+        mainPlayBtn.addEventListener('click', () => {
+            if (mainAudio.paused) {
+                if (!mainAudio.src) {
+                    // If no audio is selected, play the first one
+                    mainAudio.src = audioElements[0].src;
+                    nowPlayingTitle.textContent = audioElements[0].title;
+                    nowPlayingArtist.textContent = audioElements[0].artist;
+                    currentAudioIndex = 0;
+                }
+                mainAudio.play();
+                mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                mainAudio.pause();
+                mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+        
+        // Previous track button
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentAudioIndex = (currentAudioIndex - 1 + audioElements.length) % audioElements.length;
+            playTrack(currentAudioIndex);
+        });
+        
+        // Next track button
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            playNextTrack();
+        });
+        
+        // Volume button
+        document.getElementById('volumeBtn').addEventListener('click', () => {
+            if (mainAudio.muted) {
+                mainAudio.muted = false;
+                document.getElementById('volumeBtn').innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                mainAudio.muted = true;
+                document.getElementById('volumeBtn').innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        });
+        
+        // Function to play a specific track
+        function playTrack(index) {
+            mainAudio.src = audioElements[index].src;
+            nowPlayingTitle.textContent = audioElements[index].title;
+            nowPlayingArtist.textContent = audioElements[index].artist;
+            mainAudio.play();
+            mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        
+        // Function to play next track
+        function playNextTrack() {
+            currentAudioIndex = (currentAudioIndex + 1) % audioElements.length;
+            playTrack(currentAudioIndex);
+        }
+        
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = (mainAudio.currentTime / mainAudio.duration) * 100;
+            audioProgress.style.width = `${progress}%`;
+        }
+        
+        // Click on progress bar to seek
+        document.querySelector('.progress-bar').addEventListener('click', (e) => {
+            const progressBar = document.querySelector('.progress-bar');
+            const clickPosition = e.clientX - progressBar.getBoundingClientRect().left;
+            const progressBarWidth = progressBar.clientWidth;
+            const seekTime = (clickPosition / progressBarWidth) * mainAudio.duration;
+            mainAudio.currentTime = seekTime;
+        });
+    </script>
+</body>
+</html>

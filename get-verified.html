@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Verified | Kusah FL Billness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --light: #f5f6fa;
+            --accent: #f85994;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --gray: #e0e0e0;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray);
+            margin: 0.25rem 0;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: white;
+            width: 280px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            z-index: 900;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar-link:hover {
+            background-color: var(--gray);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content - Verification Specific */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 180px);
+        }
+        
+        .verification-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .verification-title {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .verification-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .verification-subtitle {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .verification-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 50%;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.3);
+        }
+        
+        /* Verification Steps */
+        .verification-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .step-description {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        /* Verification Form */
+        .verification-form-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .form-text {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+            margin-top: 0.25rem;
+        }
+        
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border: 2px dashed var(--gray);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary);
+            background-color: rgba(108, 92, 231, 0.05);
+        }
+        
+        .file-upload-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .file-upload-text {
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-upload-hint {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-check-input {
+            margin-right: 0.75rem;
+        }
+        
+        .form-check-label {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .form-check-label a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .form-check-label a:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Verification Benefits */
+        .verification-benefits {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .benefits-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .benefits-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .benefit-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(248, 89, 148, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .benefit-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .benefit-description {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #16213e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-left: 280px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content, .footer {
+                margin-left: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .verification-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .verification-form-container {
+                padding: 2rem;
+            }
+            
+            .verification-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-actions .btn {
+                padding: 0.5rem;
+                font-size: 0;
+            }
+            
+            .user-actions .btn i {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .verification-form-container {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Menu Toggle (for mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <span class="logo-icon">♫</span>
+            <span class="logo-text">Kusah FL Billness</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+            <a href="#" class="nav-link"><i class="fas fa-music"></i> Library</a>
+            <a href="#" class="nav-link"><i class="fas fa-headphones"></i> Premium</a>
+        </nav>
+        
+        <div class="user-actions">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <button class="btn btn-outline">Upgrade</button>
+            <div class="user-avatar" id="userAvatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Users</h3>
+            <a href="articles.html" class="sidebar-link"><i class="fas fa-newspaper"></i> Articles</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-download"></i> Download</a>
+            <a href="trending.html" class="sidebar-link"><i class="fas fa-fire"></i> Trending Songs</a>
+            <a href="help-center.html" class="sidebar-link"><i class="fas fa-question-circle"></i> Help Center</a>
+            <a href="new-songs.html" class="sidebar-link"><i class="fas fa-star"></i> New Songs</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-crown"></i> Go Premium</a>
+            <a href="charts.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Charts</a>
+            <a href="videos.html" class="sidebar-link"><i class="fas fa-video"></i> Videos</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-podcast"></i> Podcast</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-bullhorn"></i> Buzz</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Artists & Vendors</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-microphone"></i> Boomplay for Artists</a>
+            <a href="get-verified.html" class="sidebar-link active"><i class="fas fa-check-circle"></i> Get Verified</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-question"></i> Artists FAQ</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-users"></i> Artists Distributors</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Vendors Login</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-flag"></i> Report Content Issue</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Company</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-ad"></i> Advertising</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-palette"></i> Visual Identity</a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="verification-header animated">
+            <div class="verification-badge">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1 class="verification-title">Get Verified</h1>
+            <p class="verification-subtitle">
+                Join the elite community of verified artists on Kusah FL Billness. Get the blue checkmark and unlock exclusive 
+                features to grow your audience and manage your music.
+            </p>
+        </div>
+        
+        <!-- Verification Steps -->
+        <div class="verification-steps">
+            <div class="step animated delay-1">
+                <div class="step-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h3 class="step-title">Complete Your Profile</h3>
+                <p class="step-description">
+                    Ensure your artist profile is complete with a bio, profile picture, and links to your social media accounts.
+                </p>
+            </div>
+            
+            <div class="step animated delay-2">
+                <div class="step-icon">
+                    <i class="fas fa-file-upload"></i>
+                </div>
+                <h3 class="step-title">Submit Documentation</h3>
+                <p class="step-description">
+                    Provide official documents that verify your identity and connection to the music you represent.
+                </p>
+            </div>
+            
+            <div class="step animated delay-3">
+                <div class="step-icon">
+                    <i class="fas fa-check-double"></i>
+                </div>
+                <h3 class="step-title">Get Verified</h3>
+                <p class="step-description">
+                    Our team will review your application and notify you once your verification is complete (usually within 7 days).
+                </p>
+            </div>
+        </div>
+        
+        <!-- Verification Form -->
+        <div class="verification-form-container animated delay-4">
+            <h2 class="form-title">Verification Application</h2>
+            <form id="verificationForm">
+                <div class="form-group">
+                    <label for="artistName" class="form-label">Artist/Band Name</label>
+                    <input type="text" id="artistName" class="form-control" placeholder="Enter your artist or band name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                    <small class="form-text">We'll send verification updates to this email</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Verification Documents</label>
+                    <div class="file-upload" id="fileUpload">
+                        <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                        <p class="file-upload-text">Drag & drop files here or click to browse</p>
+                        <small class="file-upload-hint">Accepted: JPG, PNG, PDF (Max 10MB)</small>
+                    </div>
+                    <small class="form-text">Upload government-issued ID, press articles, or official social media links</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="socialMedia" class="form-label">Social Media Links</label>
+                    <input type="text" id="socialMedia" class="form-control" placeholder="Instagram, Twitter, Facebook URLs">
+                    <small class="form-text">Provide links to your official social media accounts</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalInfo" class="form-label">Additional Information</label>
+                    <textarea id="additionalInfo" class="form-control" rows="4" placeholder="Tell us why you should be verified"></textarea>
+                </div>
+                
+                <div class="form-check">
+                    <input type="checkbox" id="termsAgree" class="form-check-input" required>
+                    <label for="termsAgree" class="form-check-label">
+                        I agree to the <a href="#">Terms of Service</a> and confirm that all information provided is accurate.
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Verification Request</button>
+            </form>
+        </div>
+        
+        <!-- Verification Benefits -->
+        <div class="verification-benefits">
+            <h2 class="benefits-title animated delay-1">Benefits of Verification</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card animated delay-2">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="benefit-title">Official Badge</h3>
+                    <p class="benefit-description">
+                        Get the verified badge on your profile, showing fans and industry professionals that you're the real deal.
+                    </p>
+                </div>
+                
+                <div class="benefit-card animated delay-3">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="benefit-title">Advanced Analytics</h3>
+                    <p class="benefit-description">
+                        Access detailed listener statistics and demographic data to better understand your audience.
+                    </p>
+                </div>
+                
+                <div class="benefit-card animated delay-4">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="benefit-title">Priority Support</h3>
+                    <p class="benefit-description">
+                        Get faster responses from our support team with dedicated help for verified artists.
+                    </p>
+                </div>
+                
+                <div class="benefit-card animated delay-2">
+                    <div class="benefit-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="benefit-title">Early Access</h3>
+                    <p class="benefit-description">
+                        Be among the first to try new features and provide feedback to shape the platform.
+                    </p>
+                </div>
+                
+                <div class="benefit-card animated delay-3">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="benefit-title">Promotion</h3>
+                    <p class="benefit-description">
+                        Get featured in our verified artist spotlight and promotional campaigns.
+                    </p>
+                </div>
+                
+                <div class="benefit-card animated delay-4">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="benefit-title">Networking</h3>
+                    <p class="benefit-description">
+                        Connect with other verified artists and industry professionals in our exclusive community.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>For Users</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Articles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Download</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Trending Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> New Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Go Premium</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>More Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Charts</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Wordpress</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Videos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Podcast</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Buzz</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Artists</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Boomplay for Artists</a></li>
+                    <li><a href="get-verified.html"><i class="fas fa-chevron-right"></i> Get Verified</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists Distributors</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Vendors Login</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Report Content Issue</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advertising</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Visual Identity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                    Follow us on social media for updates and news about your favorite artists.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Kusah FL Billness. All rights reserved.</p>
+            <div>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Cookies</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle sidebar on mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+        
+        // User dropdown
+        const userAvatar = document.getElementById('userAvatar');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        userAvatar.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-actions')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Responsive adjustments
+        function checkScreenSize() {
+            if (window.innerWidth <= 992) {
+                menuToggle.style.display = 'block';
+            } else {
+                menuToggle.style.display = 'none';
+                sidebar.classList.remove('show');
+            }
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
+        
+        // File upload interaction
+        const fileUpload = document.getElementById('fileUpload');
+        
+        fileUpload.addEventListener('click', function() {
+            // In a real implementation, this would trigger a file input
+            console.log('File upload clicked');
+            // Create and trigger a file input element
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.multiple = true;
+            fileInput.accept = 'image/*,.pdf';
+            fileInput.click();
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    fileUpload.innerHTML = `
+                        <i class="fas fa-check-circle file-upload-icon" style="color: var(--success)"></i>
+                        <p class="file-upload-text">${this.files.length} file(s) selected</p>
+                        <small class="file-upload-hint">Click to change files</small>
+                    `;
+                }
+            });
+        });
+        
+        // Allow drag and drop (visual feedback only in this example)
+        fileUpload.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = var(--primary);
+            this.style.backgroundColor = 'rgba(108, 92, 231, 0.1)';
+        });
+        
+        fileUpload.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = var(--gray);
+            this.style.backgroundColor = 'transparent';
+        });
+        
+        fileUpload.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = var(--gray);
+            this.style.backgroundColor = 'transparent';
+            
+            // In a real implementation, handle the dropped files
+            if (e.dataTransfer.files.length > 0) {
+                fileUpload.innerHTML = `
+                    <i class="fas fa-check-circle file-upload-icon" style="color: var(--success)"></i>
+                    <p class="file-upload-text">${e.dataTransfer.files.length} file(s) dropped</p>
+                    <small class="file-upload-hint">Click to change files</small>
+                `;
+            }
+        });
+        
+        // Form submission
+        const verificationForm = document.getElementById('verificationForm');
+        
+        verificationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // In a real implementation, this would submit to a server
+                alert('Verification request submitted successfully! We will review your application and contact you soon.');
+                verificationForm.reset();
+                
+                // Reset file upload display
+                fileUpload.innerHTML = `
+                    <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                    <p class="file-upload-text">Drag & drop files here or click to browse</p>
+                    <small class="file-upload-hint">Accepted: JPG, PNG, PDF (Max 10MB)</small>
+                `;
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

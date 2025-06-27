@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist FAQ - Kusah FL Billness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --light: #f5f6fa;
+            --accent: #f85994;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --gray: #e0e0e0;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray);
+            margin: 0.25rem 0;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: white;
+            width: 280px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            z-index: 900;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar-link:hover {
+            background-color: var(--gray);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content - FAQ Specific */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 180px);
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1rem;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .search-faq {
+            display: flex;
+            width: 300px;
+        }
+        
+        .search-faq input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 30px 0 0 30px;
+            outline: none;
+        }
+        
+        .search-faq button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            padding: 0 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .search-faq button:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title i {
+            margin-right: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            background-color: rgba(108, 92, 231, 0.05);
+            transition: background-color 0.2s;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+        
+        .faq-question i {
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 1.25rem 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .contact-support {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 2rem;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .contact-support h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-support p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #16213e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-left: 280px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content, .footer {
+                margin-left: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar, .search-faq {
+                width: 200px;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-faq {
+                width: 100%;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-actions .btn {
+                padding: 0.5rem;
+                font-size: 0;
+            }
+            
+            .user-actions .btn i {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Menu Toggle (for mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <span class="logo-icon">♫</span>
+            <span class="logo-text">Kusah FL Billness</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+            <a href="#" class="nav-link"><i class="fas fa-music"></i> Library</a>
+            <a href="#" class="nav-link"><i class="fas fa-headphones"></i> Premium</a>
+        </nav>
+        
+        <div class="user-actions">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <button class="btn btn-outline">Upgrade</button>
+            <div class="user-avatar" id="userAvatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Users</h3>
+            <a href="articles.html" class="sidebar-link"><i class="fas fa-newspaper"></i> Articles</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-download"></i> Download</a>
+            <a href="trending.html" class="sidebar-link"><i class="fas fa-fire"></i> Trending Songs</a>
+            <a href="help-center.html" class="sidebar-link"><i class="fas fa-question-circle"></i> Help Center</a>
+            <a href="new-songs.html" class="sidebar-link"><i class="fas fa-star"></i> New Songs</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-crown"></i> Go Premium</a>
+            <a href="charts.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Charts</a>
+            <a href="#" class="sidebar-link"><i class="fab fa-wordpress"></i> Wordpress</a>
+            <a href="videos.html" class="sidebar-link"><i class="fas fa-video"></i> Videos</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-podcast"></i> Podcast</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-bullhorn"></i> Buzz</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Artists & Vendors</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-microphone"></i> Boomplay for Artists</a>
+            <a href="get-verified.html" class="sidebar-link"><i class="fas fa-check-circle"></i> Get Verified</a>
+            <a href="artist-faq.html" class="sidebar-link active"><i class="fas fa-question"></i> Artists FAQ</a>
+            <a href="artists-distributors.html" class="sidebar-link"><i class="fas fa-users"></i> Artists Distributors</a>
+            <a href="vendors-login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Vendors Login</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-flag"></i> Report Content Issue</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Company</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-ad"></i> Advertising</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-palette"></i> Visual Identity</a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Artist Frequently Asked Questions</h1>
+            <div class="search-faq">
+                <input type="text" placeholder="Search FAQ...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-category">
+                <h2 class="category-title"><i class="fas fa-cloud-upload-alt"></i> Uploading & Distribution</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I upload my music to Kusah FL Billness?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To upload your music, you need to create an artist account and go to the "Upload" section in your dashboard. From there, you can upload your tracks, add metadata (title, artist name, genre, etc.), and submit for review. Once approved, your music will be distributed across our platform.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What file formats do you accept for upload?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept high-quality audio files in WAV (44.1kHz/16-bit minimum) or FLAC format for the best sound quality. We also accept MP3 files (320kbps preferred). The file size limit is 500MB per track.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does it take for my music to go live?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After submission, our team reviews all content to ensure it meets our quality standards and guidelines. This process typically takes 3-5 business days. Once approved, your music will be live within 24-48 hours.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I schedule my release for a specific date?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Our premium artist accounts allow you to schedule releases up to 6 months in advance. This feature is perfect for planning your marketing campaigns and building anticipation for your new music.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2 class="category-title"><i class="fas fa-money-bill-wave"></i> Payments & Royalties</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I get paid for my streams?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We pay royalties monthly based on your streams from the previous month. Payments are processed by the 15th of each month and are sent via bank transfer, mobile money (M-Pesa, Tigo Pesa, Airtel Money), or PayPal, depending on your preference.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's the payment rate per stream?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our payment rates vary based on the listener's subscription type (free or premium) and country. On average, artists earn between TZS 5 to TZS 20 per stream. Premium subscribers generate higher royalty rates than free users.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a minimum payout threshold?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, the minimum payout amount is TZS 50,000 for bank transfers and TZS 10,000 for mobile money payments. If your earnings don't reach this threshold in a given month, they will roll over to the next month.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How can I track my earnings?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Your artist dashboard provides real-time analytics showing your streams, earnings, and listener demographics. You can access detailed reports broken down by day, track, and region to help you understand your audience better.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2 class="category-title"><i class="fas fa-chart-line"></i> Promotion & Growth</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How can I get my music featured on Kusah FL Billness?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our editorial team regularly reviews new music for playlist placement. To increase your chances, ensure your profile is complete, your music is high quality, and you're actively promoting your releases. You can also submit your tracks for playlist consideration through your artist dashboard.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are Verified Artist badges and how do I get one?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Verified badges help distinguish official artist profiles. To qualify, you need to have at least 3 tracks uploaded, a complete profile with bio and photos, and demonstrate you're the legitimate rights holder. Apply through the "Get Verified" section in your account settings.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I run ads to promote my music on your platform?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Our self-service advertising platform allows you to create targeted campaigns to promote your music to relevant listeners. You can set your budget, target by location, age, listening habits, and more. Visit the "Promote" section in your dashboard to get started.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What tools do you offer to help me grow my audience?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide several tools including: pre-save campaigns for upcoming releases, smart links to track clicks, embeddable players for your website, detailed analytics, and the ability to message your followers directly through our app. Premium artist accounts get access to additional promotional features.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2 class="category-title"><i class="fas fa-cog"></i> Account & Technical</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I update my artist profile information?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can edit your profile at any time by going to "Profile Settings" in your artist dashboard. Changes to your artist name may require verification to prevent impersonation. Profile picture and bio updates typically go live within 24 hours.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What should I do if I find unauthorized content under my name?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Immediately report the content through the "Report" button on the track/page or contact our Copyright team at copyright@kusahflbillness.co.tz with proof of ownership. We take copyright infringement seriously and will investigate promptly.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I transfer ownership of my artist account?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, but this requires verification from both parties to prevent unauthorized transfers. Contact our Artist Support team with both parties' identification and a signed transfer agreement to initiate the process.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I delete my artist account?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Account deletion is permanent and will remove all your content from our platform. Before proceeding, download any data you wish to keep. To delete, go to Account Settings > Advanced > Delete Account. Note that royalties from past streams will still be payable according to our normal schedule.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-support">
+                <h3>Still have questions?</h3>
+                <p>Our artist support team is here to help you with any additional questions or concerns you may have about using our platform.</p>
+                <button class="btn btn-primary">Contact Artist Support</button>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>For Users</h3>
+                <ul class="footer-links">
+                    <li><a href="articles.html"><i class="fas fa-chevron-right"></i> Articles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Download</a></li>
+                    <li><a href="trending.html"><i class="fas fa-chevron-right"></i> Trending Songs</a></li>
+                    <li><a href="help-center.html"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                    <li><a href="new-songs.html"><i class="fas fa-chevron-right"></i> New Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Go Premium</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>More Links</h3>
+                <ul class="footer-links">
+                    <li><a href="charts.html"><i class="fas fa-chevron-right"></i> Charts</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Wordpress</a></li>
+                    <li><a href="videos.html"><i class="fas fa-chevron-right"></i> Videos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Podcast</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Buzz</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Artists</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Boomplay for Artists</a></li>
+                    <li><a href="get-verified.html"><i class="fas fa-chevron-right"></i> Get Verified</a></li>
+                    <li><a href="artist-faq.html"><i class="fas fa-chevron-right"></i> Artists FAQ</a></li>
+                    <li><a href="artists-distributors.html"><i class="fas fa-chevron-right"></i> Artists Distributors</a></li>
+                    <li><a href="vendors-login.html"><i class="fas fa-chevron-right"></i> Vendors Login</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Report Content Issue</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advertising</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Visual Identity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                    Follow us on social media for updates and news about your favorite artists.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Kusah FL Billness. All rights reserved.</p>
+            <div>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Cookies</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle sidebar on mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+        
+        // User dropdown
+        const userAvatar = document.getElementById('userAvatar');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        userAvatar.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-actions')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // FAQ accordion functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+        
+        // FAQ search functionality
+        const faqSearch = document.querySelector('.search-faq input');
+        
+        faqSearch.addEventListener('input', () => {
+            const searchTerm = faqSearch.value.toLowerCase();
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
+        // Responsive adjustments
+        function checkScreenSize() {
+            if (window.innerWidth <= 992) {
+                menuToggle.style.display = 'block';
+            } else {
+                menuToggle.style.display = 'none';
+                sidebar.classList.remove('show');
+            }
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
+    </script>
+</body>
+</html>

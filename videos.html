@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Videos | Kusah FL Billness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #1a1a2e;
+            --light: #f5f6fa;
+            --accent: #f85994;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --gray: #e0e0e0;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.5rem;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a4bd6;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 200px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray);
+            margin: 0.25rem 0;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: white;
+            width: 280px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            z-index: 900;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding: 0 1.5rem;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sidebar-link:hover {
+            background-color: var(--gray);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .sidebar-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content - Videos Specific */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 180px);
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .video-filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-label {
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+        
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--gray);
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+        }
+        
+        /* Featured Video Section */
+        .featured-video {
+            margin-bottom: 3rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .featured-video:hover {
+            transform: translateY(-5px);
+        }
+        
+        .featured-video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+        }
+        
+        .featured-video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .featured-video-info {
+            background-color: white;
+            padding: 1.5rem;
+        }
+        
+        .featured-video-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .featured-video-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        .featured-video-stats {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .featured-video-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .featured-video-stat i {
+            color: var(--accent);
+        }
+        
+        .featured-video-description {
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .featured-video-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* Video Grid */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .video-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(108, 92, 231, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+        
+        .video-card:hover .video-play-btn {
+            opacity: 1;
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .video-info {
+            padding: 1.25rem;
+        }
+        
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .video-artist {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .video-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+        }
+        
+        .video-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .video-stat i {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+        
+        /* Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .video-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .video-modal-content {
+            width: 90%;
+            max-width: 1000px;
+            position: relative;
+        }
+        
+        .video-modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .video-modal-close:hover {
+            color: var(--accent);
+        }
+        
+        .video-modal-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
+        }
+        
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            background-color: white;
+            border: 1px solid var(--gray);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        
+        .category-btn:hover {
+            background-color: var(--gray);
+        }
+        
+        .category-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Load More Button */
+        .load-more {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: #16213e;
+            color: white;
+            padding: 3rem 2rem;
+            margin-left: 280px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-links a i {
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .videos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content, .footer {
+                margin-left: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .video-filters {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .featured-video-title {
+                font-size: 1.3rem;
+            }
+            
+            .featured-video-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-actions .btn {
+                padding: 0.5rem;
+                font-size: 0;
+            }
+            
+            .user-actions .btn i {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Menu Toggle (for mobile) */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <span class="logo-icon">♫</span>
+            <span class="logo-text">Kusah FL Billness</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+            <a href="#" class="nav-link"><i class="fas fa-music"></i> Library</a>
+            <a href="#" class="nav-link"><i class="fas fa-headphones"></i> Premium</a>
+        </nav>
+        
+        <div class="user-actions">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search videos...">
+            </div>
+            <button class="btn btn-outline">Upgrade</button>
+            <div class="user-avatar" id="userAvatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            </div>
+            
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Users</h3>
+            <a href="articles.html" class="sidebar-link"><i class="fas fa-newspaper"></i> Articles</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-download"></i> Download</a>
+            <a href="trending.html" class="sidebar-link"><i class="fas fa-fire"></i> Trending Songs</a>
+            <a href="help-center.html" class="sidebar-link"><i class="fas fa-question-circle"></i> Help Center</a>
+            <a href="new-songs.html" class="sidebar-link"><i class="fas fa-star"></i> New Songs</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-crown"></i> Go Premium</a>
+            <a href="charts.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Charts</a>
+            <a href="videos.html" class="sidebar-link active"><i class="fas fa-video"></i> Videos</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-podcast"></i> Podcast</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-bullhorn"></i> Buzz</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">For Artists & Vendors</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-microphone"></i> Boomplay for Artists</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-check-circle"></i> Get Verified</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-question"></i> Artists FAQ</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-users"></i> Artists Distributors</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Vendors Login</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-flag"></i> Report Content Issue</a>
+        </div>
+        
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Company</h3>
+            <a href="#" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-ad"></i> Advertising</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-newspaper"></i> News</a>
+            <a href="#" class="sidebar-link"><i class="fas fa-palette"></i> Visual Identity</a>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header animated">
+            <h1 class="page-title">Music Videos</h1>
+            <div class="video-filters">
+                <div class="filter-group">
+                    <span class="filter-label">Sort by:</span>
+                    <select class="filter-select">
+                        <option>Most Popular</option>
+                        <option>Newest First</option>
+                        <option>Trending</option>
+                        <option>Most Viewed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Genre:</span>
+                    <select class="filter-select">
+                        <option>All Genres</option>
+                        <option>Bongo Flava</option>
+                        <option>Afrobeats</option>
+                        <option>Hip Hop</option>
+                        <option>Dancehall</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Categories -->
+        <div class="categories animated delay-1">
+            <button class="category-btn active">All Videos</button>
+            <button class="category-btn">Trending</button>
+            <button class="category-btn">New Releases</button>
+            <button class="category-btn">Exclusive</button>
+            <button class="category-btn">Concerts</button>
+            <button class="category-btn">Interviews</button>
+            <button class="category-btn">Behind the Scenes</button>
+        </div>
+        
+        <!-- Featured Video -->
+        <div class="featured-video animated delay-1">
+            <div class="featured-video-container">
+                <iframe class="featured-video-player" src="https://www.youtube.com/embed/abc123?autoplay=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="featured-video-info">
+                <h2 class="featured-video-title">Mama - Diamond Platnumz ft. Adele (Official Video)</h2>
+                <div class="featured-video-meta">
+                    <span>Diamond Platnumz</span>
+                    <span>2 weeks ago</span>
+                    <span>12.5M views</span>
+                </div>
+                <div class="featured-video-stats">
+                    <div class="featured-video-stat"><i class="fas fa-thumbs-up"></i> 845K</div>
+                    <div class="featured-video-stat"><i class="fas fa-comment"></i> 24K</div>
+                    <div class="featured-video-stat"><i class="fas fa-share"></i> 120K</div>
+                </div>
+                <p class="featured-video-description">
+                    The official music video for "Mama" by Diamond Platnumz featuring Adele. This emotional tribute to mothers worldwide was shot in Dar es Salaam and London. Directed by acclaimed filmmaker Soudi.
+                </p>
+                <div class="featured-video-actions">
+                    <button class="btn btn-primary"><i class="fas fa-thumbs-up"></i> Like</button>
+                    <button class="btn btn-outline"><i class="fas fa-share"></i> Share</button>
+                    <button class="btn btn-outline"><i class="fas fa-plus"></i> Save</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Videos Grid -->
+        <div class="videos-grid">
+            <!-- Video 1 -->
+            <div class="video-card animated delay-2" data-video-id="def456">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/def456/maxresdefault.jpg" alt="Number One">
+                    <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                    <span class="video-duration">4:12</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Number One - Harmonize ft. Burna Boy (Official Video)</h3>
+                    <p class="video-artist">Harmonize</p>
+                    <div class="video-stats">
+                        <span class="video-stat"><i class="fas fa-eye"></i> 10.2M</span>
+                        <span class="video-stat"><i class="fas fa-thumbs-up"></i> 720K</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 2 -->
+            <div class="video-card animated delay-3" data-video-id="ghi789">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/ghi789/maxresdefault.jpg" alt="Sweet Love">
+                    <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                    <span class="video-duration">3:22</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Sweet Love - Ali Kiba (Official Video)</h3>
+                    <p class="video-artist">Ali Kiba</p>
+                    <div class="video-stats">
+                        <span class="video-stat"><i class="fas fa-eye"></i> 9.8M</span>
+                        <span class="video-stat"><i class="fas fa-thumbs-up"></i> 690K</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 3 -->
+            <div class="video-card animated delay-4" data-video-id="jkl012">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/jkl012/maxresdefault.jpg" alt="Nakupenda">
+                    <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                    <span class="video-duration">3:15</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Nakupenda - Rayvanny (Official Video)</h3>
+                    <p class="video-artist">Rayvanny</p>
+                    <div class="video-stats">
+                        <span class="video-stat"><i class="fas fa-eye"></i> 8.7M</span>
+                        <span class="video-stat"><i class="fas fa-thumbs-up"></i> 610K</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 4 -->
+            <div class="video-card animated delay-2" data-video-id="mno345">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/mno345/maxresdefault.jpg" alt="Mwanza">
+                    <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                    <span class="video-duration">3:58</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Mwanza - Lady Jaydee (Official Video)</h3>
+                    <p class="video-artist">Lady Jaydee</p>
+                    <div class="video-stats">
+                        <span class="video-stat"><i class="fas fa-eye"></i> 7.9M</span>
+                        <span class="video-stat"><i class="fas fa-thumbs-up"></i> 550K</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 5 -->
+            <div class="video-card animated delay-3" data-video-id="pqr678">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/pqr678/maxresdefault.jpg" alt="Tetema">
+                    <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                    <span class="video-duration">4:25</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Tetema - Rayvanny ft. Diamond Platnumz (Official Video)</h3>
+                    <p class="video-artist">Rayvanny</p>
+                    <div class="video-stats">
+                        <span class="video-stat"><i class="fas fa-eye"></i> 15.3M</span>
+                        <span class="video-stat"><i class="fas fa-thumbs-up"></i> 920K</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 6 -->
+            <div class="video-card animated delay-4" data-video-id="stu901">
+                <div class="video-thumbnail">
+                    <img src="https://i.ytimg.com/vi/stu901/maxresdefault.jpg" alt="Kwetu">
+                    <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                    <span class="video-duration">3:42</span>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Kwetu - Ben Pol (Official Video)</h3>
+                    <p class="video-artist">Ben Pol</p>
+                    <div class="video-stats">
+                        <span class="video-stat"><i class="fas fa-eye"></i> 6.5M</span>
+                        <span class="video-stat"><i class="fas fa-thumbs-up"></i> 480K</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="load-more animated delay-4">
+            <button class="btn btn-primary">Load More Videos</button>
+        </div>
+        
+        <!-- Video Modal -->
+        <div class="video-modal" id="videoModal">
+            <div class="video-modal-content">
+                <span class="video-modal-close" id="modalClose"><i class="fas fa-times"></i></span>
+                <div class="video-modal-player" id="modalPlayer"></div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>For Users</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Articles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Download</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Trending Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> New Songs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Go Premium</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>More Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Charts</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Wordpress</a></li>
+                    <li><a href="videos.html"><i class="fas fa-chevron-right"></i> Videos</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Podcast</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Buzz</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>For Artists</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Boomplay for Artists</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Get Verified</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Artists Distributors</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Vendors Login</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Report Content Issue</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Advertising</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Visual Identity</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                    Follow us on social media for updates and news about your favorite artists.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Kusah FL Billness. All rights reserved.</p>
+            <div>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Terms of Service</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); margin-right: 1rem; text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Cookies</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle sidebar on mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+        
+        // User dropdown
+        const userAvatar = document.getElementById('userAvatar');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        
+        userAvatar.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-actions')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Responsive adjustments
+        function checkScreenSize() {
+            if (window.innerWidth <= 992) {
+                menuToggle.style.display = 'block';
+            } else {
+                menuToggle.style.display = 'none';
+                sidebar.classList.remove('show');
+            }
+        }
+        
+        // Run on load and resize
+        window.addEventListener('load', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize);
+        
+        // Video Modal
+        const videoCards = document.querySelectorAll('.video-card');
+        const videoModal = document.getElementById('videoModal');
+        const modalPlayer = document.getElementById('modalPlayer');
+        const modalClose = document.getElementById('modalClose');
+        
+        videoCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const videoId = this.getAttribute('data-video-id');
+                modalPlayer.innerHTML = `
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                `;
+                videoModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        modalClose.addEventListener('click', function() {
+            videoModal.classList.remove('show');
+            modalPlayer.innerHTML = '';
+            document.body.style.overflow = 'auto';
+        });
+        
+        videoModal.addEventListener('click', function(e) {
+            if (e.target === videoModal) {
+                videoModal.classList.remove('show');
+                modalPlayer.innerHTML = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Category buttons
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                // Here you would typically filter videos based on category
+            });
+        });
+        
+        // Load more button
+        const loadMoreBtn = document.querySelector('.load-more .btn');
+        loadMoreBtn.addEventListener('click', function() {
+            // Here you would typically load more videos via AJAX
+            this.textContent = 'Loading...';
+            setTimeout(() => {
+                this.textContent = 'Load More Videos';
+                // Simulate adding more videos
+                const videosGrid = document.querySelector('.videos-grid');
+                const newVideo = document.createElement('div');
+                newVideo.className = 'video-card animated';
+                newVideo.setAttribute('data-video-id', 'new123');
+                newVideo.innerHTML = `
+                    <div class="video-thumbnail">
+                        <img src="https://i.ytimg.com/vi/new123/maxresdefault.jpg" alt="New Video">
+                        <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                        <span class="video-duration">3:30</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">New Release - Coming Soon</h3>
+                        <p class="video-artist">Various Artists</p>
+                        <div class="video-stats">
+                            <span class="video-stat"><i class="fas fa-eye"></i> 0</span>
+                            <span class="video-stat"><i class="fas fa-thumbs-up"></i> 0</span>
+                        </div>
+                    </div>
+                `;
+                videosGrid.appendChild(newVideo);
+                
+                // Re-attach click event to new video
+                newVideo.addEventListener('click', function() {
+                    const videoId = this.getAttribute('data-video-id');
+                    modalPlayer.innerHTML = `
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+                    `;
+                    videoModal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

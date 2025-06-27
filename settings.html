@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Kusah FL Billness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        .sidebar {
+            transition: transform 0.3s ease;
+        }
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+        .settings-card {
+            background: #252525;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 2.5rem;
+            height: 1.5rem;
+        }
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #4b5563;
+            transition: 0.4s;
+            border-radius: 1.5rem;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 1.1rem;
+            width: 1.1rem;
+            left: 0.2rem;
+            bottom: 0.2rem;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+        input:checked + .slider:before {
+            transform: translateX(1rem);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">♫</span>
+                <a href="index.html" class="text-xl font-bold text-white">Kusah FL Billness</a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-300 hover:text-blue-500">Home</a>
+                <a href="explore.html" class="text-gray-300 hover:text-blue-500">Explore</a>
+                <a href="library.html" class="text-gray-300 hover:text-blue-500">Library</a>
+                <a href="premium.html" class="text-gray-300 hover:text-blue-500">Premium</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="premium.html" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Upgrade</a>
+                <a href="profile.html" class="text-gray-300 hover:text-blue-500">Profile</a>
+                <a href="settings.html" class="text-gray-300 hover:text-blue-500 font-bold">Settings</a>
+                <a href="logout.html" class="text-gray-300 hover:text-blue-500">Logout</a>
+                <button id="sidebar-toggle" class="md:hidden text-gray-300 hover:text-blue-500">
+                    <i class="fas fa-bars"></i>
+                </button>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar (Mobile) -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-800 z-40 sidebar md:hidden sidebar-hidden">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <a href="index.html" class="text-xl font-bold text-white">Kusah FL Billness</a>
+                <button id="sidebar-close" class="text-gray-300 hover:text-blue-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="space-y-4">
+                <a href="index.html" class="block text-gray-300 hover:text-blue-500">Home</a>
+                <a href="explore.html" class="block text-gray-300 hover:text-blue-500">Explore</a>
+                <a href="library.html" class="block text-gray-300 hover:text-blue-500">Library</a>
+                <a href="premium.html" class="block text-gray-300 hover:text-blue-500">Premium</a>
+                <a href="profile.html" class="block text-gray-300 hover:text-blue-500">Profile</a>
+                <a href="settings.html" class="block text-gray-300 hover:text-blue-500 font-bold">Settings</a>
+                <a href="logout.html" class="block text-gray-300 hover:text-blue-500">Logout</a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <section class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text mb-4">Settings</h1>
+            <p class="text-lg text-gray-400 max-w-2xl">Customize your Kusah FL Billness experience with advanced settings for account, playback, notifications, and more.</p>
+        </section>
+
+        <!-- Account Settings -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold gradient-text mb-6">Account Settings</h2>
+            <div class="settings-card">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                        <input type="text" placeholder="Your Name" class="bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="John Doe">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <input type="email" placeholder="Your Email" class="bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="john.doe@example.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                        <input type="password" placeholder="********" class="bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+                        <input type="tel" placeholder="+255 123 456 789" class="bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                <button class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Save Changes</button>
+            </div>
+        </section>
+
+        <!-- Playback Settings -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold gradient-text mb-6">Playback Preferences</h2>
+            <div class="settings-card space-y-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Crossfade Songs</h3>
+                        <p class="text-sm text-gray-400">Smoothly transition between tracks for a seamless listening experience.</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Streaming Quality</label>
+                    <select class="bg-gray-700 text-white p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Auto (Adjusts to connection)</option>
+                        <option>Low (96 kbps)</option>
+                        <option>Medium (160 kbps)</option>
+                        <option>High (320 kbps)</option>
+                    </select>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Gapless Playback</h3>
+                        <p class="text-sm text-gray-400">Play songs without pauses for albums designed to flow continuously.</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Settings -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold gradient-text mb-6">Notification Settings</h2>
+            <div class="settings-card space-y-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">New Release Alerts</h3>
+                        <p class="text-sm text-gray-400">Get notified about new music from your favorite artists.</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Playlist Updates</h3>
+                        <p class="text-sm text-gray-400">Receive updates when curated playlists are refreshed.</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Promotional Offers</h3>
+                        <p class="text-sm text-gray-400">Stay informed about exclusive deals and promotions.</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Customization -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold gradient-text mb-6">Theme Customization</h2>
+            <div class="settings-card">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div class="text-center hover-scale">
+                        <div class="h-20 rounded-lg bg-gradient-to-r from-blue-600 to-pink-500"></div>
+                        <p class="text-sm text-gray-300 mt-2">Default Gradient</p>
+                        <input type="radio" name="theme" checked class="mt-2">
+                    </div>
+                    <div class="text-center hover-scale">
+                        <div class="h-20 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500"></div>
+                        <p class="text-sm text-gray-300 mt-2">Purple Haze</p>
+                        <input type="radio" name="theme" class="mt-2">
+                    </div>
+                    <div class="text-center hover-scale">
+                        <div class="h-20 rounded-lg bg-gradient-to-r from-green-600 to-blue-500"></div>
+                        <p class="text-sm text-gray-300 mt-2">Emerald Glow</p>
+                        <input type="radio" name="theme" class="mt-2">
+                    </div>
+                </div>
+                <button class="mt-6 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Apply Theme</button>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="text-center mb-16">
+            <h2 class="text-3xl font-bold gradient-text mb-4">Go Premium for More Control</h2>
+            <p class="text-gray-400 max-w-xl mx-auto mb-6">Unlock advanced settings and exclusive features with a Premium subscription.</p>
+            <a href="premium.html" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition inline-block">Go Premium</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">For Users</h3>
+                    <ul class="space-y-2">
+                        <li><a href="articles.html" class="text-gray-400 hover:text-blue-500">Articles</a></li>
+                        <li><a href="download.html" class="text-gray-400 hover:text-blue-500">Download</a></li>
+                        <li><a href="trending.html" class="text-gray-400 hover:text-blue-500">Trending Songs</a></li>
+                        <li><a href="help.html" class="text-gray-400 hover:text-blue-500">Help Center</a></li>
+                        <li><a href="new-songs.html" class="text-gray-400 hover:text-blue-500">New Songs</a></li>
+                        <li><a href="premium.html" class="text-gray-400 hover:text-blue-500">Go Premium</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">More Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="charts.html" class="text-gray-400 hover:text-blue-500">Charts</a></li>
+                        <li><a href="wordpress.html" class="text-gray-400 hover:text-blue-500">Wordpress</a></li>
+                        <li><a href="videos.html" class="text-gray-400 hover:text-blue-500">Videos</a></li>
+                        <li><a href="podcast.html" class="text-gray-400 hover:text-blue-500">Podcast</a></li>
+                        <li><a href="buzz.html" class="text-gray-400 hover:text-blue-500">Buzz</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">For Artists</h3>
+                    <ul class="space-y-2">
+                        <li><a href="artists.html" class="text-gray-400 hover:text-blue-500">Boomplay for Artists</a></li>
+                        <li><a href="verified.html" class="text-gray-400 hover:text-blue-500">Get Verified</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-blue-500">Artists FAQ</a></li>
+                        <li><a href="distributors.html" class="text-gray-400 hover:text-blue-500">Artists Distributors</a></li>
+                        <li><a href="vendors.html" class="text-gray-400 hover:text-blue-500">Vendors Login</a></li>
+                        <li><a href="report.html" class="text-gray-400 hover:text-blue-500">Report Content Issue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-blue-500">About</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-blue-500">Contact</a></li>
+                        <li><a href="advertising.html" class="text-gray-400 hover:text-blue-500">Advertising</a></li>
+                        <li><a href="news.html" class="text-gray-400 hover:text-blue-500">News</a></li>
+                        <li><a href="identity.html" class="text-gray-400 hover:text-blue-500">Visual Identity</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Connect With Us</h3>
+                    <p class="text-gray-400 mb-4">Follow us on social media for updates and news about your favorite artists.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-4 text-center">
+                <p class="text-gray-400">© 2025 Kusah FL Billness. All rights reserved.</p>
+                <div class="flex justify-center space-x-4 mt-2">
+                    <a href="terms.html" class="text-gray-400 hover:text-blue-500">Terms of Service</a>
+                    <a href="privacy.html" class="text-gray-400 hover:text-blue-500">Privacy Policy</a>
+                    <a href="cookies.html" class="text-gray-400 hover:text-blue-500">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sidebar Toggle Script -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-hidden');
+        });
+
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.add('sidebar-hidden');
+        });
+    </script>
+</body>
+</html>

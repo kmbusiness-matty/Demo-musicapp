@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - Kusah FL Billness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        .sidebar {
+            transition: transform 0.3s ease;
+        }
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+        .card {
+            background: #252525;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(26, 26, 26, 0.8), #1a1a1a), url('https://via.placeholder.com/1200x400');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">♫</span>
+                <a href="index.html" class="text-xl font-bold text-white">Kusah FL Billness</a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-300 hover:text-blue-500">Home</a>
+                <a href="explore.html" class="text-gray-300 hover:text-blue-500 font-bold">Explore</a>
+                <a href="library.html" class="text-gray-300 hover:text-blue-500">Library</a>
+                <a href="premium.html" class="text-gray-300 hover:text-blue-500">Premium</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="premium.html" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Upgrade</a>
+                <a href="profile.html" class="text-gray-300 hover:text-blue-500">Profile</a>
+                <a href="settings.html" class="text-gray-300 hover:text-blue-500">Settings</a>
+                <a href="logout.html" class="text-gray-300 hover:text-blue-500">Logout</a>
+                <button id="sidebar-toggle" class="md:hidden text-gray-300 hover:text-blue-500">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar (Mobile) -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-gray-800 z-40 sidebar md:hidden sidebar-hidden">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-6">
+                <a href="index.html" class="text-xl font-bold text-white">Kusah FL Billness</a>
+                <button id="sidebar-close" class="text-gray-300 hover:text-blue-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="space-y-4">
+                <a href="index.html" class="block text-gray-300 hover:text-blue-500">Home</a>
+                <a href="explore.html" class="block text-gray-300 hover:text-blue-500 font-bold">Explore</a>
+                <a href="library.html" class="block text-gray-300 hover:text-blue-500">Library</a>
+                <a href="premium.html" class="block text-gray-300 hover:text-blue-500">Premium</a>
+                <a href="profile.html" class="block text-gray-300 hover:text-blue-500">Profile</a>
+                <a href="settings.html" class="block text-gray-300 hover:text-blue-500">Settings</a>
+                <a href="logout.html" class="block text-gray-300 hover:text-blue-500">Logout</a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <!-- Hero Section -->
+        <section class="hero-bg rounded-lg p-8 mb-16 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text mb-4">Explore New Sounds</h1>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto mb-6">Dive into a world of music with curated playlists, trending artists, and fresh releases tailored to your taste.</p>
+            <a href="#playlists" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition inline-block">Start Exploring</a>
+        </section>
+
+        <!-- Curated Playlists Section -->
+        <section id="playlists" class="mb-16">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">Curated Playlists</h2>
+                <a href="#" class="text-blue-500 hover:text-blue-600">View All</a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div class="card hover-scale">
+                    <img src="https://via.placeholder.com/150" alt="Playlist Cover" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Afrobeats Mix</h3>
+                        <p class="text-sm text-gray-400">30 songs</p>
+                    </div>
+                </div>
+                <div class="card hover-scale">
+                    <img src="https://via.placeholder.com/150" alt="Playlist Cover" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Bongo Flava Hits</h3>
+                        <p class="text-sm text-gray-400">25 songs</p>
+                    </div>
+                </div>
+                <div class="card hover-scale">
+                    <img src="https://via.placeholder.com/150" alt="Playlist Cover" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Chill Afro Vibes</h3>
+                        <p class="text-sm text-gray-400">20 songs</p>
+                    </div>
+                </div>
+                <div class="card hover-scale">
+                    <img src="https://via.placeholder.com/150" alt="Playlist Cover" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Party Anthems</h3>
+                        <p class="text-sm text-gray-400">28 songs</p>
+                    </div>
+                </div>
+                <div class="card hover-scale">
+                    <img src="https://via.placeholder.com/150" alt="Playlist Cover" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Reggae Roots</h3>
+                        <p class="text-sm text-gray-400">22 songs</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Artists Section -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">Trending Artists</h2>
+                <a href="#" class="text-blue-500 hover:text-blue-600">View All</a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div class="card hover-scale text-center">
+                    <img src="https://via.placeholder.com/150" alt="Artist Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Artist Name</h3>
+                        <p class="text-sm text-gray-400">Bongo Flava</p>
+                    </div>
+                </div>
+                <div class="card hover-scale text-center">
+                    <img src="https://via.placeholder.com/150" alt="Artist Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Artist Name</h3>
+                        <p class="text-sm text-gray-400">Afrobeats</p>
+                    </div>
+                </div>
+                <div class="card hover-scale text-center">
+                    <img src="https://via.placeholder.com/150" alt="Artist Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Artist Name</h3>
+                        <p class="text-sm text-gray-400">Hip Hop</p>
+                    </div>
+                </div>
+                <div class="card hover-scale text-center">
+                    <img src="https://via.placeholder.com/150" alt="Artist Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Artist Name</h3>
+                        <p class="text-sm text-gray-400">Reggae</p>
+                    </div>
+                </div>
+                <div class="card hover-scale text-center">
+                    <img src="https://via.placeholder.com/150" alt="Artist Image" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-white">Artist Name</h3>
+                        <p class="text-sm text-gray-400">Gospel</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Releases Section -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold gradient-text">New Releases</h2>
+                <a href="#" class="text-blue-500 hover:text-blue-600">View All</a>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center bg-gray-800 p-4 rounded-lg hover-scale">
+                    <img src="https://via.placeholder.com/50" alt="Track Cover" class="w-12 h-12 rounded object-cover mr-4">
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold text-white">New Song Title</h3>
+                        <p class="text-sm text-gray-400">Artist Name • Album Name</p>
+                    </div>
+                    <button class="text-gray-300 hover:text-blue-500">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="flex items-center bg-gray-800 p-4 rounded-lg hover-scale">
+                    <img src="https://via.placeholder.com/50" alt="Track Cover" class="w-12 h-12 rounded object-cover mr-4">
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold text-white">Fresh Hit</h3>
+                        <p class="text-sm text-gray-400">Artist Name • Album Name</p>
+                    </div>
+                    <button class="text-gray-300 hover:text-blue-500">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="flex items-center bg-gray-800 p-4 rounded-lg hover-scale">
+                    <img src="https://via.placeholder.com/50" alt="Track Cover" class="w-12 h-12 rounded object-cover mr-4">
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold text-white">Latest Track</h3>
+                        <p class="text-sm text-gray-400">Artist Name • Album Name</p>
+                    </div>
+                    <button class="text-gray-300 hover:text-blue-500">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="text-center mb-16">
+            <h2 class="text-3xl font-bold gradient-text mb-4">Unlock More with Premium</h2>
+            <p class="text-gray-400 max-w-xl mx-auto mb-6">Enjoy ad-free music, offline downloads, and exclusive content with a Premium subscription.</p>
+            <a href="premium.html" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition inline-block">Go Premium</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">For Users</h3>
+                    <ul class="space-y-2">
+                        <li><a href="articles.html" class="text-gray-400 hover:text-blue-500">Articles</a></li>
+                        <li><a href="download.html" class="text-gray-400 hover:text-blue-500">Download</a></li>
+                        <li><a href="trending.html" class="text-gray-400 hover:text-blue-500">Trending Songs</a></li>
+                        <li><a href="help.html" class="text-gray-400 hover:text-blue-500">Help Center</a></li>
+                        <li><a href="new-songs.html" class="text-gray-400 hover:text-blue-500">New Songs</a></li>
+                        <li><a href="premium.html" class="text-gray-400 hover:text-blue-500">Go Premium</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">More Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="charts.html" class="text-gray-400 hover:text-blue-500">Charts</a></li>
+                        <li><a href="wordpress.html" class="text-gray-400 hover:text-blue-500">Wordpress</a></li>
+                        <li><a href="videos.html" class="text-gray-400 hover:text-blue-500">Videos</a></li>
+                        <li><a href="podcast.html" class="text-gray-400 hover:text-blue-500">Podcast</a></li>
+                        <li><a href="buzz.html" class="text-gray-400 hover:text-blue-500">Buzz</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">For Artists</h3>
+                    <ul class="space-y-2">
+                        <li><a href="artists.html" class="text-gray-400 hover:text-blue-500">Boomplay for Artists</a></li>
+                        <li><a href="verified.html" class="text-gray-400 hover:text-blue-500">Get Verified</a></li>
+                        <li><a href="faq.html" class="text-gray-400 hover:text-blue-500">Artists FAQ</a></li>
+                        <li><a href="distributors.html" class="text-gray-400 hover:text-blue-500">Artists Distributors</a></li>
+                        <li><a href="vendors.html" class="text-gray-400 hover:text-blue-500">Vendors Login</a></li>
+                        <li><a href="report.html" class="text-gray-400 hover:text-blue-500">Report Content Issue</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-blue-500">About</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-blue-500">Contact</a></li>
+                        <li><a href="advertising.html" class="text-gray-400 hover:text-blue-500">Advertising</a></li>
+                        <li><a href="news.html" class="text-gray-400 hover:text-blue-500">News</a></li>
+                        <li><a href="identity.html" class="text-gray-400 hover:text-blue-500">Visual Identity</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Connect With Us</h3>
+                    <p class="text-gray-400 mb-4">Follow us on social media for updates and news about your favorite artists.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-4 text-center">
+                <p class="text-gray-400">© 2025 Kusah FL Billness. All rights reserved.</p>
+                <div class="flex justify-center space-x-4 mt-2">
+                    <a href="terms.html" class="text-gray-400 hover:text-blue-500">Terms of Service</a>
+                    <a href="privacy.html" class="text-gray-400 hover:text-blue-500">Privacy Policy</a>
+                    <a href="cookies.html" class="text-gray-400 hover:text-blue-500">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sidebar Toggle Script -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-hidden');
+        });
+
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.add('sidebar-hidden');
+        });
+    </script>
+</body>
+</html>
